@@ -49,36 +49,26 @@ function App() {
 
   return (
     <Router>
-      <Route path="/login" exact>
+      <Route path='/login' exact>
         <Login />
       </Route>
-      <Route path="/">
-        <NavBar
-          jobTitle={currentJobTitle}
-          name={currentUserName}
-          userID={currentUserID}
-          profilePicture={currentProfilePicture}
-        />
+      <Route path='/'>
+        <NavBar jobTitle={currentJobTitle} name={currentUserName} userID={currentUserID} profilePicture={currentProfilePicture} />
       </Route>
-      <Route path="/feed" exact>
-        <MainFeedContent
-          jobTitle={currentJobTitle}
-          name={currentUserName}
-          userID={currentUserID}
-          profilePicture={currentProfilePicture}
-        />
+      <Route path='/feed' exact>
+        <MainFeedContent jobTitle={currentJobTitle} name={currentUserName} userID={currentUserID} profilePicture={currentProfilePicture} />
       </Route>
-      <Route path="/profile/:id" exact>
+      <Route path='/profile/:id' exact>
         <MainContent contactInfoHandler={contactInfoHandler} loggedInUserID={currentUserID} />
       </Route>
-      <Route path="/network" exact>
+      <Route path='/network' exact>
         <MyNetwork />
       </Route>
       {isContactInfoOpen && <ContactInfoPopup contactInfoHandler={contactInfoHandler} />}
-      <Route path="/learning" exact component={Learning} />
-      <Route path="/jobs" exact component={Jobs} />
+      <Route path='/learning' exact component={Learning} />
+      <Route path='/jobs' exact component={Jobs} />
 
-      <Route path="/" component={Footer} />
+      <Route path='/' component={Footer} />
       <FullPageLoader />
     </Router>
   );

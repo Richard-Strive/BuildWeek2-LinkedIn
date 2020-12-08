@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Container, ListGroup } from "react-bootstrap";
-
-export default class Education extends Component {
+import { withRouter } from "react-router-dom";
+export default withRouter(class Education extends Component {
   render() {
+    const { pathname } = this.props.location;
     return (
       <div>
         <div id="education-main-container" className="education-contain mb-3">
           <div className="d-flex align-items-center justify-content-between">
             <h4 className="font-weight-normal">Education</h4>
 
-            <i className="fas fa-plus mr-3 "></i>
+            <i className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "fas fa-plus mr-3" : " userOnly"}></i>
           </div>
           <ListGroup>
             <ListGroup.Item
@@ -24,7 +25,7 @@ export default class Education extends Component {
                   <p className="mb-0 font-weight-light">Subtext 2</p>
                 </div>
               </div>
-              <i className="fas fa-pen "></i>
+              <i className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "fas fa-pen" : " userOnly"}></i>
             </ListGroup.Item>
             <ListGroup.Item
               variant="light"
@@ -38,7 +39,7 @@ export default class Education extends Component {
                   <p className="mb-0 font-weight-light">Subtext 2</p>
                 </div>
               </div>
-              <i className="fas fa-pen "></i>
+              <i className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "fas fa-pen" : "userOnly"}></i>
             </ListGroup.Item>
           </ListGroup>
         </div>
@@ -46,3 +47,4 @@ export default class Education extends Component {
     );
   }
 }
+)

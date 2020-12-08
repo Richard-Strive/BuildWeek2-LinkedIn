@@ -7,7 +7,7 @@ import LatestExperience from "./LatestExperience";
 import About from "./About";
 import MyLoader from "./ContentLoader";
 import ImageUploader from "react-images-upload";
-
+import { withRouter } from "react-router-dom";
 function MainProfileBlock(props) {
   const [isMoreClicked, setIsMoreClicked] = React.useState(false);
   const [userData, setUserData] = React.useState({});
@@ -85,7 +85,7 @@ function MainProfileBlock(props) {
     setCurrentUserID(props.userID);
     fetchUserDataHandler(props.userID);
   }, [props.userID]);
-
+  const { pathname } = props.location;
   return (
     <>
       <div
@@ -112,36 +112,36 @@ function MainProfileBlock(props) {
                   <Spinner variant="primary" animation="border" role="status" />
                 </div>
               ) : (
-                <>
-                  <ImageUploader
-                    withIcon={true}
-                    buttonText="Upload image"
-                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                    maxFileSize={5242880}
-                    singleImage={true}
-                    withPreview={true}
-                    withLabel={false}
-                    onChange={profilePictureUploadHandler}
-                  />
-                  <div className="d-flex justify-content-end align-items-center" style={{ height: 40 }}>
-                    <Button
-                      variant="outline-secondary"
-                      className="rounded-pill mr-2"
-                      onClick={showProfilePictureUploadHandler}
-                    >
-                      Cancel
+                  <>
+                    <ImageUploader
+                      withIcon={true}
+                      buttonText="Upload image"
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={5242880}
+                      singleImage={true}
+                      withPreview={true}
+                      withLabel={false}
+                      onChange={profilePictureUploadHandler}
+                    />
+                    <div className="d-flex justify-content-end align-items-center" style={{ height: 40 }}>
+                      <Button
+                        variant="outline-secondary"
+                        className="rounded-pill mr-2"
+                        onClick={showProfilePictureUploadHandler}
+                      >
+                        Cancel
                     </Button>
-                    <Button
-                      variant="primary"
-                      className="rounded-pill"
-                      style={{ width: 160 }}
-                      onClick={postProfilePictureHandler}
-                    >
-                      Save Changes
+                      <Button
+                        variant="primary"
+                        className="rounded-pill"
+                        style={{ width: 160 }}
+                        onClick={postProfilePictureHandler}
+                      >
+                        Save Changes
                     </Button>
-                  </div>
-                </>
-              )}
+                    </div>
+                  </>
+                )}
             </div>
           )}
           <Card.Body className="d-flex justify-content-between px-4 py-3 mb-3">
@@ -153,7 +153,7 @@ function MainProfileBlock(props) {
                     style={{ background: `url(${userData.image})` }}
                   >
                     {props.loggedInUserID === currentUserID && (
-                      <div className="profile-picture-edit-btn" onClick={showProfilePictureUploadHandler}>
+                      <div className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "profile-picture-edit-btn" : "profile-picture-edit-btn userOnly"} onClick={showProfilePictureUploadHandler}>
                         <i className="fas fa-pen"></i>
                       </div>
                     )}
@@ -222,8 +222,8 @@ function MainProfileBlock(props) {
                 </div>
               </>
             ) : (
-              <MyLoader />
-            )}
+                <MyLoader />
+              )}
           </Card.Body>
         </Card>
         <Highlights />
@@ -233,4 +233,4 @@ function MainProfileBlock(props) {
   );
 }
 
-export default MainProfileBlock;
+export default withRouter(MainProfileBlock);

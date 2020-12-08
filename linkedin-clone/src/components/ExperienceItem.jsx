@@ -2,6 +2,7 @@ import React from "react";
 import Moment from "react-moment";
 import { ListGroup, Button, Spinner } from "react-bootstrap";
 import ImageUploader from "react-images-upload";
+import { withRouter } from "react-router-dom";
 
 const ExperienceItem = (props) => {
   const [isUploadWindowOpen, setIsUploadWindowOpen] = React.useState(false);
@@ -66,14 +67,14 @@ const ExperienceItem = (props) => {
   React.useEffect(() => {
     fetchExperienceImage();
   }, []);
-
+  const { pathname } = props.location;
   return (
     <ListGroup.Item variant="light" className="d-flex align-items-center justify-content-between brdr-bottom">
       <div className="d-flex align-items-start">
         <div className="expImgPlace mr-4" style={{ background: `url(${experienceImage})` }}>
           {props.userID === "5fc4c48fed266800170ea3d8" && (
-            <div className="experience-imgupload-container" onClick={openUploadWindowHandler}>
-              <i className="fas fa-upload"></i>
+            <div className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "experience-imgupload-container" : "experience-imgupload-container userOnly"} onClick={openUploadWindowHandler}>
+              <i className="fas fa-upload "></i>
             </div>
           )}
         </div>
@@ -86,37 +87,37 @@ const ExperienceItem = (props) => {
                 <Spinner variant="primary" animation="border" role="status" />
               </div>
             ) : (
-              <>
-                <ImageUploader
-                  withIcon={true}
-                  buttonText="Upload image"
-                  imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                  maxFileSize={5242880}
-                  singleImage={true}
-                  withPreview={true}
-                  withLabel={false}
-                  onChange={profilePictureUploadHandler}
-                />
-                <div className="d-flex justify-content-center align-items-center" style={{ height: 40 }}>
-                  <Button
-                    variant="outline-secondary"
-                    className="rounded-pill mr-2"
-                    onClick={openUploadWindowHandler}
-                    style={{ width: "40%" }}
-                  >
-                    Cancel
+                <>
+                  <ImageUploader
+                    withIcon={true}
+                    buttonText="Upload image"
+                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                    maxFileSize={5242880}
+                    singleImage={true}
+                    withPreview={true}
+                    withLabel={false}
+                    onChange={profilePictureUploadHandler}
+                  />
+                  <div className="d-flex justify-content-center align-items-center" style={{ height: 40 }}>
+                    <Button
+                      variant="outline-secondary"
+                      className="rounded-pill mr-2"
+                      onClick={openUploadWindowHandler}
+                      style={{ width: "40%" }}
+                    >
+                      Cancel
                   </Button>
-                  <Button
-                    variant="primary"
-                    className="rounded-pill"
-                    style={{ width: "60%" }}
-                    onClick={postProfilePictureHandler}
-                  >
-                    Save Changes
+                    <Button
+                      variant="primary"
+                      className="rounded-pill"
+                      style={{ width: "60%" }}
+                      onClick={postProfilePictureHandler}
+                    >
+                      Save Changes
                   </Button>
-                </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
           </div>
         )}
         <div className="d-flex flex-column">
@@ -129,11 +130,11 @@ const ExperienceItem = (props) => {
           <small className="font-weight-light">{props.experience.area}</small>
         </div>
       </div>
-      <div onClick={() => props.editModal(props.experience)} style={{ cursor: "pointer" }}>
+      <div className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "" : " userOnly"} onClick={() => props.editModal(props.experience)} style={{ cursor: "pointer" }}>
         <i className="fas fa-pen "></i>
       </div>
     </ListGroup.Item>
   );
 };
 
-export default ExperienceItem;
+export default withRouter(ExperienceItem);

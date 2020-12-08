@@ -4,6 +4,7 @@ import AddModal from "./AddModal";
 import EditModal from "./EditModal";
 import ExperienceItem from "./ExperienceItem";
 import ExpEducationLoaders from "./loaders/ExpEducationLoaders";
+import { withRouter } from "react-router-dom";
 
 class Experience extends Component {
   state = {
@@ -123,26 +124,27 @@ class Experience extends Component {
   };
 
   render() {
+    const { pathname } = this.props.location;
     return (
       <div>
         <div id="experience-main-container" className="experience-contain mb-0">
           <div className="d-flex align-items-center justify-content-between mr-2">
             <h4 className="font-weight-normal">Experience</h4>
-            <div onClick={() => this.addModalToggleHandler()} style={{ cursor: "pointer" }}>
+            <div className={pathname === "/profile/5fc4c48fed266800170ea3d8" ? "" : " userOnly"} onClick={() => this.addModalToggleHandler()} style={{ cursor: "pointer" }}>
               <i className="fas fa-plus"></i>
             </div>
           </div>
           <ListGroup>
             {this.state.loaded
               ? this.state.experiences.length > 0 &&
-                this.state.experiences.map((exp, key) => (
-                  <ExperienceItem
-                    key={key}
-                    experience={exp}
-                    editModal={this.editModalToggleHandler}
-                    userID={this.props.userID}
-                  />
-                ))
+              this.state.experiences.map((exp, key) => (
+                <ExperienceItem
+                  key={key}
+                  experience={exp}
+                  editModal={this.editModalToggleHandler}
+                  userID={this.props.userID}
+                />
+              ))
               : Array.from({ length: 4 }, (_, i) => i + 1).map((n) => <ExpEducationLoaders key={n} />)}
           </ListGroup>
         </div>
@@ -168,4 +170,4 @@ class Experience extends Component {
   }
 }
 
-export default Experience;
+export default withRouter(Experience);
