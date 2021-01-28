@@ -28,12 +28,15 @@ function App() {
 
   const fetchUserDataHandler = async (id) => {
     try {
-      let response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${id}`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmM0YzQ4ZmVkMjY2ODAwMTcwZWEzZDgiLCJpYXQiOjE2MDY3MzA4OTUsImV4cCI6MTYwNzk0MDQ5NX0.Qzj6OQCKSyxDgEgIadVbBI70XPPAgDlcGoWJEKyM6cU",
-        },
-      });
+      let response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/${id}`,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmM0YzQ4ZmVkMjY2ODAwMTcwZWEzZDgiLCJpYXQiOjE2MDY3MzA4OTUsImV4cCI6MTYwNzk0MDQ5NX0.Qzj6OQCKSyxDgEgIadVbBI70XPPAgDlcGoWJEKyM6cU",
+          },
+        }
+      );
       let data = await response.json();
       setCurrentUserName(`${data.name} ${data.surname}`);
       setCurrentJobTitle(data.title);
@@ -49,26 +52,41 @@ function App() {
 
   return (
     <Router>
-      <Route path='/login' exact>
+      <Route path="/login" exact>
         <Login />
       </Route>
-      <Route path='/'>
-        <NavBar jobTitle={currentJobTitle} name={currentUserName} userID={currentUserID} profilePicture={currentProfilePicture} />
+      <Route path="/">
+        <NavBar
+          jobTitle={currentJobTitle}
+          name={currentUserName}
+          userID={currentUserID}
+          profilePicture={currentProfilePicture}
+        />
       </Route>
-      <Route path='/feed' exact>
-        <MainFeedContent jobTitle={currentJobTitle} name={currentUserName} userID={currentUserID} profilePicture={currentProfilePicture} />
+      <Route path="/feed" exact>
+        <MainFeedContent
+          jobTitle={currentJobTitle}
+          name={currentUserName}
+          userID={currentUserID}
+          profilePicture={currentProfilePicture}
+        />
       </Route>
-      <Route path='/profile/:id' exact>
-        <MainContent contactInfoHandler={contactInfoHandler} loggedInUserID={currentUserID} />
+      <Route path="/profile/:id" exact>
+        <MainContent
+          contactInfoHandler={contactInfoHandler}
+          loggedInUserID={currentUserID}
+        />
       </Route>
-      <Route path='/network' exact>
+      <Route path="/network" exact>
         <MyNetwork />
       </Route>
-      {isContactInfoOpen && <ContactInfoPopup contactInfoHandler={contactInfoHandler} />}
-      <Route path='/learning' exact component={Learning} />
-      <Route path='/jobs' exact component={Jobs} />
+      {isContactInfoOpen && (
+        <ContactInfoPopup contactInfoHandler={contactInfoHandler} />
+      )}
+      <Route path="/learning" exact component={Learning} />
+      <Route path="/jobs" exact component={Jobs} />
 
-      <Route path='/' component={Footer} />
+      <Route path="/" component={Footer} />
       <FullPageLoader />
     </Router>
   );
